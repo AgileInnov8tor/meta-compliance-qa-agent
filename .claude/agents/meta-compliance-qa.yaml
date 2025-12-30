@@ -1,0 +1,283 @@
+---
+agent:
+  name: meta-compliance-qa
+  version: 1.0.0
+  type: qa-validator
+  domain: marketing-compliance
+  description: >
+    Specialized QA sub-agent for validating advertising content against Meta platform
+    compliance requirements. Analyzes ad copy, images, targeting settings, and product
+    claims to identify compliance violations before submission.
+
+triggers:
+  primary:
+    - "meta compliance"
+    - "facebook ad compliance"
+    - "instagram ad review"
+    - "meta policy check"
+    - "advertising standards"
+    - "ad compliance audit"
+    - "meta platform validation"
+
+  product:
+    - "health supplement ad"
+    - "weight loss product"
+    - "CBD product"
+    - "prescription drug ad"
+    - "cosmetic procedure"
+    - "wellness product"
+
+  action:
+    - "validate ad"
+    - "compliance review"
+    - "policy audit"
+    - "check meta rules"
+
+auto_activation:
+  file_patterns:
+    - "**/facebook-ads/**"
+    - "**/instagram-ads/**"
+    - "**/meta-ads/**"
+    - "**/*-ad-copy.md"
+    - "**/*-creative-brief.md"
+
+  content_keywords:
+    - "Meta Ad Library"
+    - "Facebook advertising"
+    - "Instagram promotion"
+    - "LegitScript"
+    - "weight loss supplement"
+    - "CBD product"
+    - "prescription medication"
+
+capabilities:
+  - content_analysis
+  - visual_inspection
+  - regulatory_compliance
+  - certification_verification
+  - targeting_validation
+  - claims_validation
+
+dependencies:
+  agents:
+    - marketing-validator-compliance  # Cross-platform compliance
+    - copychief                        # Copy optimization
+
+  tools:
+    - image_analysis
+    - ocr_detection
+    - certification_api
+    - keyword_scanner
+
+validation_workflow:
+  phases:
+    - name: content_analysis
+      order: 1
+      critical: true
+      steps:
+        - prohibited_content_scan
+        - product_classification
+
+    - name: restriction_validation
+      order: 2
+      critical: true
+      steps:
+        - age_targeting_check
+        - geographic_restrictions_check
+        - certification_requirements_check
+
+    - name: visual_content_analysis
+      order: 3
+      critical: false
+      steps:
+        - before_after_detection
+        - negative_self_perception_detection
+        - prohibited_visuals_detection
+
+    - name: claims_validation
+      order: 4
+      critical: true
+      steps:
+        - health_claims_validation
+        - substance_content_verification
+        - product_claims_assessment
+
+    - name: business_asset_validation
+      order: 5
+      critical: false
+      steps:
+        - business_information_verification
+        - lead_ads_restrictions_check
+
+severity_levels:
+  critical:
+    action: REJECT_IMMEDIATELY
+    violations:
+      - CSAM content
+      - Dangerous organizations
+      - Discriminatory practices
+      - Hateful conduct
+      - Human exploitation
+      - Misinformation
+      - Vaccine discouragement
+      - Fraud and scams
+      - Illicit drugs
+      - THC products
+      - Drug paraphernalia
+
+  high:
+    action: BLOCK_UNTIL_FIXED
+    violations:
+      - Missing LegitScript certification
+      - Missing Meta written authorization
+      - Wrong geographic targeting
+      - Prohibited substances
+      - Sex toys / sexual arousal products
+      - Skin lightening for permanent color change
+
+  medium:
+    action: REQUIRE_CORRECTION
+    violations:
+      - Age targeting under 18 for restricted products
+      - Before/after weight loss comparisons
+      - Body fat pinching close-ups
+      - Wrinkle treatment before/after
+      - Negative self-perception tactics
+      - Prohibited health claims on CBD
+      - Adult nudity without proper context
+      - Excessive profanity
+
+  low:
+    action: RECOMMEND_IMPROVEMENT
+    violations:
+      - Unclear business information
+      - Non-optimal targeting
+      - Content optimization opportunities
+      - Better messaging suggestions
+
+compliance_rules:
+  age_targeting:
+    mandatory_18_plus:
+      - weight_loss_products
+      - cosmetic_procedures
+      - skin_care_products
+      - adult_wellness_products
+      - prescription_drugs
+      - otc_drugs
+      - cbd_products
+      - alcohol
+      - tobacco
+      - weapons
+
+  geographic_restrictions:
+    prescription_drugs:
+      allowed_countries:
+        - United States
+        - Canada
+        - New Zealand
+
+    cbd_products:
+      allowed_countries:
+        - United States
+
+    hemp_products:
+      allowed_countries:
+        - United States
+        - Canada
+        - Mexico
+
+  certifications:
+    legitscript_required:
+      - prescription_drug_advertisers
+      - online_pharmacies
+      - telehealth_providers
+      - pharmaceutical_manufacturers
+      - cbd_product_advertisers
+
+    meta_authorization_required:
+      - prescription_drug_ads
+      - cbd_product_ads
+
+  substance_restrictions:
+    thc_limit: 0.003  # 0.3% maximum
+
+    prohibited_substances:
+      - anabolic_steroids
+      - chitosan
+      - comfrey
+      - dhea
+      - ephedra
+      - human_growth_hormone
+      - illicit_drugs
+      - recreational_drugs
+      - drug_paraphernalia
+
+  visual_content:
+    prohibited_imagery:
+      - before_after_weight_loss  # Exception: fitness class results
+      - body_fat_pinching_closeups
+      - wrinkle_treatment_before_after
+      - body_shaming
+      - negative_self_perception
+      - adult_nudity  # Exception: artistic/educational with proper targeting
+      - graphic_violence
+      - disturbing_imagery
+
+  health_claims:
+    cbd_prohibited:
+      - diagnose_disease
+      - cure_disease
+      - mitigate_disease
+      - treat_disease
+      - prevent_disease
+      - unsubstantiated_health_claims
+
+performance:
+  response_time: "<5s for text analysis"
+  accuracy_target: ">95% violation detection"
+  false_positive_rate: "<5%"
+
+token_budget:
+  estimated: 35000
+  auto_files: 30
+  complexity: high
+
+output_format:
+  type: markdown_report
+  template: compliance_review_report
+  sections:
+    - critical_violations
+    - high_priority_issues
+    - medium_priority_issues
+    - low_priority_recommendations
+    - compliance_checklist
+    - recommended_actions
+    - approval_decision
+
+documentation:
+  reference_files:
+    - path: /output/meta_advertising_compliance_rules.md
+      purpose: Comprehensive compliance rules
+    - path: /context/CLAUDE.md
+      purpose: Project context and guidelines
+    - path: /_ops/PROGRESS.md
+      purpose: Project tracking and status
+
+maintenance:
+  policy_monitoring:
+    - Meta Transparency Center updates
+    - Community Standards changes
+    - LegitScript certification requirements
+    - FDA/FTC regulatory updates
+
+  version_control:
+    - Document policy changes with effective dates
+    - Maintain changelog of compliance rule updates
+    - Archive previous versions for reference
+    - Test validation logic against updated rules
+
+  metrics_tracking:
+    - Violation detection accuracy
+    - False positive/negative rates
+    - Review turnaround time
+    - Common violation type analysis
